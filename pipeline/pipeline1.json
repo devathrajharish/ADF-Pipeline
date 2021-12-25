@@ -1,0 +1,69 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Notebook3",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/v-hdevathraj@microsoft.com/v-hdevathraj@microsoft.com/Anusha-test-permissions",
+					"libraries": [
+						{
+							"cran": {
+								"package": "lda"
+							}
+						},
+						{
+							"pypi": {
+								"package": "pyodbc"
+							}
+						}
+					]
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks2_SP",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Notebook4",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Notebook3",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/v-hdevathraj@microsoft.com/Spark-Programming-1.5.0-IL/Python/1.5 DataFrame & Column"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-12-25T21:03:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
